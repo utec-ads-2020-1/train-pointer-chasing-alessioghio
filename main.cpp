@@ -2,6 +2,8 @@
 # include <stdio.h>
 #include <string>
 #include <sstream>
+#include <algorithm>
+#include <ctype.h>
 using namespace std;
 
 void chasing(int **A[], int a, int *B[], int b, int C[], int c){
@@ -9,12 +11,16 @@ void chasing(int **A[], int a, int *B[], int b, int C[], int c){
         /*scanf(" %c %d  %c %d", &letter1, &n, &letter2, &m); // the %c conversion specifier won't automatically skip any leading whitespace
         printf("Letter1: %c n: %d Letter2: %c m: %d", letter1, n, letter2, m); // This print is for debug purposes*/
         // Input
+        // There are many lines in the input file, each line is an instruction(length < 64)      
         string input;
         getline(cin, input);
+        // Remove whitespaces
+        input.erase(remove(input.begin(), input.end(), ' '), input.end());
         stringstream ss(input);
-        // only process data that is in the format "X n Y m" (7 length string)
-        if (input.size() == 7){
+        // only process data that is in the format "XnYm" (4 length string)
+        if (input.size() == 4){
                 // Pass data into a char, because sscanf cannot work with strings
+                // There might be a better way to do it, check it later
                 char letters[4];
                 for (int i = 0; i < 4; i++){
                         ss >> letters[i];
